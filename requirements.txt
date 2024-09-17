@@ -1,0 +1,11 @@
+langchain-google-community
+playwright
+beautifulsoup4
+requests
+lxml
+playwright
+beautifulsoup4
+langchain-community
+python-dotenv
+pytest
+pytest-asyncio
