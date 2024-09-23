@@ -16,7 +16,7 @@ def crawl_website(base_url: str, max_pages: int) -> List[Tuple[str, str]]:
 
     while queue and len(extracted_text) < max_pages:
         url = queue.pop(0)
-        if url in visited:
+        if url in visited or len(extracted_text) >= max_pages:
             continue
         
         visited.add(url)
@@ -33,15 +33,10 @@ def crawl_website(base_url: str, max_pages: int) -> List[Tuple[str, str]]:
             for link in links:
                 absolute_link = urljoin(url, link['href'])
                 parsed_link = urlparse(absolute_link)
-                
-                # Check if the link is a valid subpage of the base URL
                 if (parsed_link.netloc == urlparse(base_url).netloc and
                     absolute_link not in visited and
-                    absolute_link not in queue and
-                    not parsed_link.fragment):  # Exclude links with fragment identifiers
-                    # Ensure the path starts with the base URL's path
-                    if parsed_link.path.startswith(urlparse(base_url).path):
-                        queue.append(absolute_link)
+                    absolute_link not in queue):
+                    queue.append(absolute_link)
 
         except requests.RequestException as e:
             print(f"Error fetching {url}: {e}")
@@ -56,9 +51,9 @@ def save_text_files(texts: List[Tuple[str, str]], folder: str):
             f.write(text)
 
 if __name__ == "__main__":
-    base_url = "https://github.hubspot.com/cms-react/reference"  # Replace with your base URL
-    max_pages = 500  # Total number of pages to crawl
-    output_folder = "projects/krwalr/experiments/github/cms_react/test2"  # Specify your desired output folder
+    base_url = "https://python.langchain.com/doc"  # Replace with your desired URL
+    max_pages = 1500  # Adjust this value to control the number of pages to crawl
+    output_folder = "output/langchain_docs"  # Specify your desired output folder
 
     extracted_text = crawl_website(base_url, max_pages)
     print(f"Total pages crawled: {len(extracted_text)}")
