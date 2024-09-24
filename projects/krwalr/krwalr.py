@@ -56,9 +56,9 @@ def save_text_files(texts: List[Tuple[str, str]], folder: str):
             f.write(text)
 
 if __name__ == "__main__":
-    base_url = "https://github.hubspot.com/cms-react/reference"  # Replace with your base URL
-    max_pages = 500  # Total number of pages to crawl
-    output_folder = "projects/krwalr/experiments/github/cms_react/test2"  # Specify your desired output folder
+    base_url = "https://langchain-ai.github.io/langgraph/reference/errors/"  # Replace with your base URL
+    max_pages = 10  # Total number of pages to crawl
+    output_folder = "output/langgraph_docs/reference"  # Specify your desired output folder
 
     extracted_text = crawl_website(base_url, max_pages)
     print(f"Total pages crawled: {len(extracted_text)}")
