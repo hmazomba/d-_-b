@@ -56,10 +56,9 @@ def save_text_files(texts: List[Tuple[str, str]], folder: str):
             f.write(text)
 
 if __name__ == "__main__":
-    base_url = "https://langchain-ai.github.io/langgraph/reference/errors/"  # Replace with your base URL
-    max_pages = 10  # Total number of pages to crawl
-    output_folder = "output/langgraph_docs/reference"  # Specify your desired output folder
-
+    base_url = "https://legacydocs.hubspot.com/docs/methods/forms/v2/get_forms"  # Replace with your base URL
+    max_pages = 120  # Total number of pages to crawl
+    output_folder = "../../output/hubspot_api/forms/"
     extracted_text = crawl_website(base_url, max_pages)
     print(f"Total pages crawled: {len(extracted_text)}")
     save_text_files(extracted_text, output_folder)
